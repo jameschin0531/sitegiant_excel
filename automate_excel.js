@@ -9,8 +9,6 @@ const STOCK_COL = 1;
 // Load the workbook
 const workbook = XLSX.readFile('products.xlsx');
 
-
-
 // main flow
 loginGetToken().then(token => {
   getInventoryToken(token).then(inventory_token => {
@@ -18,7 +16,7 @@ loginGetToken().then(token => {
     updateExcelData(excel_data, inventory_token);
   });
 });
-
+// functions
 async function loginGetToken() {
   const credential = {
     "email": process.env.EMAIL,
@@ -40,7 +38,6 @@ async function loginGetToken() {
 
   return token;
 }
-
 async function getInventoryToken(token) {
   console.log('token', token);
   const webRequestConfig = {
@@ -56,7 +53,6 @@ async function getInventoryToken(token) {
     .catch(error => console.log(error));
   return inventory_token;
 }
-
 function formRequestHeader(token) {
   return {
     'authority': 'inventoryapi2.sitegiant.io',
@@ -76,15 +72,12 @@ function formRequestHeader(token) {
     'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/112.0.0.0 Safari/537.36 Edg/112.0.1722.46'
   }
 }
-
-// functions
 function getExcelData() {
   // Get the first worksheet
   const worksheet = workbook.Sheets[workbook.SheetNames[0]];
   // Convert the worksheet to a JSON object
   return XLSX.utils.sheet_to_json(worksheet, { header: 1 });
 }
-
 function updateExcelData(data, inventory_token) {
   // // Loop through each row of the data array
   data.forEach((row, rowIndex) => {
