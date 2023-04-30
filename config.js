@@ -1,6 +1,8 @@
 require('dotenv').config();
 module.exports = {
   BASE_URL: 'https://inventoryapi2.sitegiant.io/api/v1/items/',
+  LOGIN_URL: 'https://authapi.sitegiant.io/api/v1/login',
+  INVENTORY_TOKEN_URL: 'https://authapi.sitegiant.io/api/v1/inventory/token',
   http_options: {
     'method': 'GET',
     'headers': {
